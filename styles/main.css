@@ -98,7 +98,22 @@ section {
   font-size: 13px;
 }
 
-@media (max-width:800px) {
+@media (max-width:400px) {
+  section {
+    grid-template-columns: 1fr;
+  }
+  .item-image-container {
+    align-self: center;
+  }
+}
+
+@media (max-width:550px) and (min-width: 400px){
+  section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width:800px) and (min-width:550px) {
   section {
     grid-template-columns: repeat(3, 1fr);
   }

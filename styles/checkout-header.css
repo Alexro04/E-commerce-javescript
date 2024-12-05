@@ -1,0 +1,51 @@
+header {
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  background-color: white;
+}
+
+.logo-section{
+  width: 180px;
+}
+
+.logo-container {
+  border: none;
+  background-color: transparent;
+  padding: 10px 4px;
+}
+
+.desktop-logo {
+  width: 96px;
+}
+
+.mobile-logo {
+  display: none;
+  width: 36px;
+}
+
+.middle-section {
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.right-section {
+  width: 180px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width:800px) {
+  .middle-section {
+    font-size: 18px;
+  }
+}
