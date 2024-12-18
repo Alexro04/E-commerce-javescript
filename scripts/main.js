@@ -1,4 +1,16 @@
+import {cart, addToCart} from '../data/cart.js';
+import {products} from '../data/products.js'
+
 let allProducts = '';
+
+function updateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach((product) => {
+    cartQuantity += product.quantity
+  });
+
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
+}
 
 products.forEach((product) => {
   allProducts += `
@@ -13,16 +25,21 @@ products.forEach((product) => {
           <p>${product.rating.count}</p>
         </div>
         <p class="item-cost">$${(product.priceCents / 100).toFixed(2)}</p>
-        <select name="" id="" class="select-number js-product-quantity" data-product-id=${product.id}>
-          <option value="">1</option>
-          <option value="">2</option>
-          <option value="">3</option>
-          <option value="">4</option>
+        <select name="" id="" class="select-number js-product-quantity" data-select-product-id=${product.id}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </div>
 
       <div class="add-to-cart-section">
-        <p class="added-to-cart">Added to cart</p>
+        <div class="added-to-cart" data-added-product-id=${product.id}>
+          <img src="images/icons/check-icon.png" alt="added to cart">
+          <p>Added to cart</p>
+        </div>
+        
         <button class="add-to-cart js-add-to-cart" data-product-id=${product.id}>Add to cart</button>
       </div>
     </div>
@@ -35,30 +52,15 @@ document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       const itemId = button.dataset.productId;
-      let sameProduct;
+      const addedToCart = document.querySelector(`[data-added-product-id="${itemId}"]`)
+      
+      addToCart(itemId)
+      updateCartQuantity()
 
-      cart.forEach((product) => {
-        if (product.itemId === itemId) {
-          product.quantity += 1;
-          sameProduct = true;
-        }
-      });
-
-      if (!sameProduct) {
-        cart.push({
-          itemId,
-          quantity: 1
-        })
-      }
-      console.log(cart)
-
-      let cartQuantity = 0;
-      cart.forEach((product) => {
-        cartQuantity += product.quantity
-      });
-
-      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
-
-
+      addedToCart.classList.add('display-added')
+      setTimeout(() => {
+        addedToCart.classList.remove('display-added')
+      }, 800)
     })
   })
+
