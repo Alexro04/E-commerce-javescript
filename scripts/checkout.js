@@ -4,16 +4,6 @@ import {products} from '../data/products.js'
 generateOrderSummaryHTML()
 updatePage()
 
-document.querySelectorAll('.js-delete-item-button')
-  .forEach((deleteButton) => {
-    const itemId = deleteButton.dataset.deleteItem
-    deleteButton.addEventListener('click', () => {
-      removefromCart(itemId)
-      document.querySelector(`.js-product-container-${itemId}`).remove()
-      updatePage()
-    })
-  })
-
 function updatePage() {
   if (cart.length === 0) {
     document.querySelector('.js-main-checkout-section').innerHTML = '<h1>No Item in Your Cart</h1>'
@@ -85,6 +75,16 @@ function generateOrderSummaryHTML() {
     document.querySelector('.all-products-container')
       .innerHTML = checkoutSummaryHTML;
   }
+
+  document.querySelectorAll('.js-delete-item-button')
+  .forEach((deleteButton) => {
+    const itemId = deleteButton.dataset.deleteItem
+    deleteButton.addEventListener('click', () => {
+      removefromCart(itemId)
+      document.querySelector(`.js-product-container-${itemId}`).remove()
+      updatePage()
+    })
+  })
 
   document.querySelectorAll('.js-update-button')
   .forEach((updateButton) => {
