@@ -1,5 +1,7 @@
-import {cart, removefromCart, getCartQuantity, updateItemQuantity} from '../data/cart.js'
+import {cart, removefromCart, getCartQuantity, updateItemQuantity, updateDeliveryOption} from '../data/cart.js'
 import {products} from '../data/products.js'
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
+import {deliveryOptions} from '../data/deliveryOptions.js'
 
 generateOrderSummaryHTML()
 updatePage()
@@ -21,7 +23,7 @@ function generateOrderSummaryHTML() {
     products.forEach((product) => {
       if (cartItem.itemId === product.id) {
         checkoutSummaryHTML += `<div class="product-container js-product-container-${product.id}">
-          <h2>Delivery date: Tuesday, June 21</h2>
+          <h2>Delivery date: ${getSelectedDelivery(cartItem.deliveryOption)}</h2>
           <div class="product-grid">
             <div class="image-container">
               <img src='${product.image}' alt="" />
@@ -44,26 +46,7 @@ function generateOrderSummaryHTML() {
             </div>
             <div class="delivery-options">
               <h4>Choose a delivery option:</h4>
-              <div class="delivery-option">
-                <input type="radio" id="" name="delivery-date-${product.id}"/>
-                <label for="">
-                  <p class="date">Tuesday, June 21</p>
-                  <p>FREE Shipping</p>
-                </label>
-              </div>
-              <div class="delivery-option">
-                <input type="radio" id="" name="delivery-date-${product.id}"/>
-                <label for="">
-                  <p class="date">Tuesday, June 21</p>
-                  <p>FREE Shipping</p>
-                </label>
-              </div>
-              <div class="delivery-option">
-                <input type="radio" id="" name="delivery-date-${product.id}"/>
-                <label for="">
-                  <p class="date">Tuesday, June 21</p>
-                  <p>FREE Shipping</p>
-                </label>
+              ${generateDeliveryOptions(product.id, cartItem.deliveryOption)}
               </div>
             </div>
           </div>
@@ -99,22 +82,68 @@ function generateOrderSummaryHTML() {
     })
   })
 
-document.querySelectorAll('.js-save-button')
-.forEach((saveButton) => {
-  saveButton.addEventListener('click', () => {
-    const saveId = saveButton.dataset.saveId;
-    const updatePanel = document.querySelector(`.js-update-quantity-${saveId}`);
-    const currentQuantity = document.querySelector(`.js-current-quantity-${saveId}`);
-    const updateButton = document.querySelector(`[data-update-id="${saveId}"]`)
-    const newQuantity = Number(document.querySelector(`.js-input-quantity-${saveId}`).value);
-    
-    updatePanel.classList.remove('show-update-panel')
-    updateButton.classList.remove('hide-quantity-update')
-    currentQuantity.classList.remove('hide-quantity-update')
+  document.querySelectorAll('.js-save-button')
+  .forEach((saveButton) => {
+    saveButton.addEventListener('click', () => {
+      const saveId = saveButton.dataset.saveId;
+      const updatePanel = document.querySelector(`.js-update-quantity-${saveId}`);
+      const currentQuantity = document.querySelector(`.js-current-quantity-${saveId}`);
+      const updateButton = document.querySelector(`[data-update-id="${saveId}"]`)
+      const newQuantity = Number(document.querySelector(`.js-input-quantity-${saveId}`).value);
+      
+      updatePanel.classList.remove('show-update-panel')
+      updateButton.classList.remove('hide-quantity-update')
+      currentQuantity.classList.remove('hide-quantity-update')
 
-    if (!isNaN(newQuantity)) updateItemQuantity(newQuantity, saveId);
-    generateOrderSummaryHTML();
-    updatePage()
+      if (!isNaN(newQuantity)) updateItemQuantity(newQuantity, saveId);
+      generateOrderSummaryHTML();
+      updatePage()
+    })
   })
-})
+
+  document.querySelectorAll('.js-delivery-option')
+  .forEach((element) => {
+    element.addEventListener('click', () => {
+      const {productId, deliveryOption} = element.dataset;
+      updateDeliveryOption(productId, deliveryOption)
+      generateOrderSummaryHTML()
+    })
+  });
+}
+
+function getSelectedDelivery(deliveryOption) {
+  const checkoutDay = dayjs()
+  let dateString;
+
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOption) {
+      const deliveryDate = checkoutDay.add(option.days, 'day')
+      dateString = deliveryDate.format('dddd, MMMM D')
+    }
+  })
+  
+  return dateString;
+}
+
+function generateDeliveryOptions(itemId, selectedOption) {
+  const checkoutDay = dayjs()
+  let deliveryOptionsHTML = '';
+
+  deliveryOptions.forEach((option) => {
+    const deliveryDate = checkoutDay.add(option.days, 'day')
+    const dateString = deliveryDate.format('dddd, MMMM D')
+    deliveryOptionsHTML += `
+      <div 
+      class="delivery-option js-delivery-option"
+      data-product-id="${itemId}"
+      data-delivery-option="${option.id}">
+        <input type="radio" id="" name="delivery-date-${itemId}" ${option.id === selectedOption ? 'checked' : ''}/>
+        <label for="">
+          <p class="date">${dateString}</p>
+          <p>${option.priceCents === 0 ? 'FREE -' : `$${(option.priceCents / 100).toFixed(2)} -`} Shipping</p>
+        </label>
+      </div>
+    `
+  });
+  return deliveryOptionsHTML;
 }

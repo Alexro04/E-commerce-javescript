@@ -1,15 +1,15 @@
-deliveryOptions = [{
-  deliveryOption: '1',
+export const deliveryOptions = [{
+  id: '1',
   days: 7,
   priceCents: 0
 },
 {
-  deliveryOption: '2',
+  id: '2',
   days: 3,
   priceCents: 599
 },
 {
-  deliveryOption: '1',
+  id: '3',
   days: 1,
   priceCents: 1099
 }]
