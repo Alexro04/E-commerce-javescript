@@ -83,6 +83,8 @@ header {
 .right-section a {
   background-color: transparent;
   padding: 5px;
+  text-decoration: none;
+  color: white;
 }
 
 .right-section span {

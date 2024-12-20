@@ -135,15 +135,37 @@ h1 {
   gap: 8px;
 }
 
-.quantity-container button {
+.quantity-container-button {
   border: none;
   background-color: transparent;
   font-size: 16px;
   color: #3B82F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.quantity-container button:hover {
+
+.item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.quantity-container-button:hover {
   color: #C2410C;
+}
+
+.update-quantity-container{
+  display: none;
+  gap: 5px;
+}
+
+.update-quantity{
+  width: 30px;
+  border-radius: 5px;
+  padding: 2px 5px;
+  border: 1px solid black;
 }
 
 .delivery-options {
@@ -165,6 +187,14 @@ h1 {
 
 .delivery-option input[type='radio'] {
   min-width: 20px
+}
+
+.hide-quantity-update {
+  display: none;
+}
+
+.show-update-panel {
+  display: flex;
 }
 
 @media (max-width:1000px) {
