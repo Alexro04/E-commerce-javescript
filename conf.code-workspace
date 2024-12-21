@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"name": "E-commerce-javascript",
+			"path": ".."
+		},
+		{
+			"name": "data",
+			"path": "../../../Downloads/javascript-amazon-project-main/javascript-amazon-project-main/data"
+		},
+		{
+			"name": "images",
+			"path": "../../../Downloads/javascript-amazon-project-main/javascript-amazon-project-main/images"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "E-commerce-javascript"
+	}
+}
