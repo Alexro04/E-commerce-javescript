@@ -1,10 +1,10 @@
-import {cart, addToCart, getCartQuantity} from '../data/cart.js';
+import {cart} from '../data/cart.js';
 import {products} from '../data/products.js'
 
-let allProducts = '';
+let allProductsHTML = '';
 
 function updateCartQuantity() {
-  const cartQuantity = getCartQuantity();
+  const cartQuantity = cart.getCartQuantity();
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity===0 ? '' : cartQuantity;
 
@@ -13,7 +13,7 @@ function updateCartQuantity() {
 updateCartQuantity();
 
 products.forEach((product) => {
-  allProducts += `
+  allProductsHTML += `
     <div class="store-item">
       <div class="store-item-info">
         <div class="item-image-container">
@@ -21,10 +21,10 @@ products.forEach((product) => {
         </div>
         <p class="item-name">${product.name}</p>
         <div class="rating">
-          <img src="images/ratings/rating-${product.rating.stars * 10}.png" alt="">
+          <img src=${product.getStarRating()} alt="">
           <p>${product.rating.count}</p>
         </div>
-        <p class="item-cost">$${(product.priceCents / 100).toFixed(2)}</p>
+        <p class="item-cost">$${product.getPrice()}</p>
         <select name="" id="" class="select-number js-product-quantity" data-select-product-id=${product.id}>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -46,7 +46,7 @@ products.forEach((product) => {
   `
 });
 
-document.getElementById('js-products-grid').innerHTML = allProducts;
+document.getElementById('js-products-grid').innerHTML = allProductsHTML;
 
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
@@ -54,7 +54,7 @@ document.querySelectorAll('.js-add-to-cart')
       const itemId = button.dataset.productId;
       const addedToCart = document.querySelector(`[data-added-product-id="${itemId}"]`)
       
-      addToCart(itemId)
+      cart.addToCart(itemId)
       updateCartQuantity()
 
       addedToCart.classList.add('display-added')

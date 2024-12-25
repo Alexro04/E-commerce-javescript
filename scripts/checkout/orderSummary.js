@@ -1,4 +1,4 @@
-import {cart, removefromCart, getCartQuantity, updateItemQuantity, updateDeliveryOption} from '../../data/cart.js'
+import {cart} from '../../data/cart.js'
 import {products} from '../../data/products.js'
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions} from '../../data/deliveryOptions.js'
@@ -6,11 +6,10 @@ import {formatCurrency} from '../utils/money.js'
 import { renderPaymentSummary } from './priceSummary.js'
 
 export function updatePage() {
-  if (cart.length === 0) {
+  if (cart.cartItems.length === 0) {
     document.querySelector('.js-main-checkout-section').innerHTML = '<h1>No Item in Your Cart</h1>'
   }
-
-  const cartQuantity = getCartQuantity();
+  const cartQuantity = cart.getCartQuantity();
   document.querySelector('.js-total-ckeckout-quantity')
   .innerHTML = cartQuantity === 1? `${cartQuantity} item` : `${cartQuantity} items`;
 }
@@ -18,7 +17,7 @@ export function updatePage() {
 export function renderOrderSummary() {
   let checkoutSummaryHTML = '';
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     products.forEach((product) => {
       if (cartItem.itemId === product.id) {
         checkoutSummaryHTML += `<div class="product-container js-product-container-${product.id}">
@@ -62,7 +61,7 @@ export function renderOrderSummary() {
   .forEach((deleteButton) => {
     const itemId = deleteButton.dataset.deleteItem
     deleteButton.addEventListener('click', () => {
-      removefromCart(itemId)
+      cart.removefromCart(itemId)
       document.querySelector(`.js-product-container-${itemId}`).remove()
       updatePage()
       renderPaymentSummary()
@@ -95,7 +94,7 @@ export function renderOrderSummary() {
       updateButton.classList.remove('hide-quantity-update')
       currentQuantity.classList.remove('hide-quantity-update')
 
-      if (!isNaN(newQuantity)) updateItemQuantity(newQuantity, saveId);
+      if (!isNaN(newQuantity)) cart.updateItemQuantity(newQuantity, saveId);
       updatePage()
       renderOrderSummary();
       renderPaymentSummary()
@@ -106,7 +105,7 @@ export function renderOrderSummary() {
   .forEach((element) => {
     element.addEventListener('click', () => {
       const {productId, deliveryOption} = element.dataset;
-      updateDeliveryOption(productId, deliveryOption)
+      cart.updateDeliveryOption(productId, deliveryOption)
       renderOrderSummary()
       renderPaymentSummary()
     })
