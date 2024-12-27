@@ -10,13 +10,15 @@
   <link rel="stylesheet" href="styles/general.css">
 </head>
 <body>
-  
+  <!-- ---------------------------------------------Header Section----------------------------------------------- -->
   <header>
     <div class="logo-section">
-      <button class="logo-container header-link">
-        <img src="images/amazon-logo-white.png" alt="Amazon" class="desktop-logo"/>
-        <img src="images/amazon-mobile-logo-white.png" alt="Amazon" class="mobile-logo">
-      </button>
+      <a href="main.html">
+        <button class="logo-container header-link">
+          <img src="images/amazon-logo-white.png" alt="Amazon" class="desktop-logo"/>
+          <img src="images/amazon-mobile-logo-white.png" alt="Amazon" class="mobile-logo">
+        </button>
+      </a>
     </div>
 
     <div class="search-section">
@@ -27,17 +29,20 @@
     </div>
 
     <div class="right-section">
-      <a class="header-link">
+      <a class="header-link" href="orders.html">
         <span>Returns</span>
         <span class="orders">& Orders</span>
       </a>
       <a class="cart header-link" href="checkout.html">
-        <img src="images/icons/cart-icon.png" alt="Cart">
+        <div class="cart-img-container">
+          <img src="images/icons/cart-icon.png" alt="Cart">
+          <div class="items-number js-cart-quantity">0</div>
+        </div>
         <div class="cart-text">Cart</div>
-        <div class="items-number js-cart-quantity">0</div>
       </a>
     </div>
   </header>
+  <!-- -----------------------------------------End Header Section--------------------------------------------- -->
 
   <section id="js-products-grid">
   </section>

@@ -115,12 +115,18 @@ header {
   width: 52px;
 }
 
+.cart-img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .items-number {
-  color: orange;
+  margin-left: 6px;
+  color: rgb(233, 174, 64);
   position: absolute;
   top: 5px;
-  left: 28px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
 }
 

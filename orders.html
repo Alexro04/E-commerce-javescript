@@ -12,10 +12,12 @@
   <!-- ------------------------- Header Section ------------------------------ -->
   <header>
     <div class="logo-section">
-      <button class="logo-container header-link">
-        <img src="images/amazon-logo-white.png" alt="Amazon" class="desktop-logo"/>
-        <img src="images/amazon-mobile-logo-white.png" alt="Amazon" class="mobile-logo">
-      </button>
+      <a href="main.html">
+        <button class="logo-container header-link">
+          <img src="images/amazon-logo-white.png" alt="Amazon" class="desktop-logo"/>
+          <img src="images/amazon-mobile-logo-white.png" alt="Amazon" class="mobile-logo">
+        </button>
+      </a>
     </div>
 
     <div class="search-section">
@@ -26,14 +28,16 @@
     </div>
 
     <div class="right-section">
-      <a class="header-link">
+      <a class="header-link" href="orders.html">
         <span>Returns</span>
         <span class="orders">& Orders</span>
       </a>
-      <a class="cart header-link">
-        <img src="images/icons/cart-icon.png" alt="Cart">
+      <a class="cart header-link" href="checkout.html">
+        <div class="cart-img-container">
+          <img src="images/icons/cart-icon.png" alt="Cart">
+          <div class="items-number js-cart-quantity">0</div>
+        </div>
         <div class="cart-text">Cart</div>
-        <div class="items-number">4</div>
       </a>
     </div>
   </header>
@@ -41,111 +45,12 @@
 
 
   <section>
-    
-    <div class="contents">
-      <h1>Your Orders</h1>
-      <div class="order-placed-container">
-        
-        <div class="orders-info-container">
-          <div class="date-and-total">
-            <div class="orders-info">
-              <p class="title">Order Placed:</p>
-              <p>August 12</p>
-            </div>
-            <div class="orders-info">
-              <p class="title">Total:</p>
-              <p>$35.06</p>
-            </div>
-          </div>
-          <div class="orders-info">
-            <p class="title">Order ID:</p>
-            <p>27cba69d-4c3d-4098-b42d-ac7fa62b7664</p>
-          </div>
-        </div>
 
-        <div class="order-detail-grid">
-          <div class="products-container">
-            <div class="product-image-container">
-              <img src="images/products/blackout-curtain-set-beige.webp" alt="">
-            </div>
-            <div class="product-info-container">
-              <div class="product-info">
-                <h2 class="product-name">Black and Gray Athletic Cotton Socks - 6 Pairs</h2>
-                <p class="product-arrival-date">Estimated Arrival on: August 15</p>
-                <p class="product-quantity">Quantity: 1</p>
-                <button class="buy-again-button">
-                  <img src="images/icons/buy-again.png" alt="">
-                  Buy it again
-                </button>
-              </div>
-              <button class="track-package-button">Track package</button>
-            </div>
-          </div>
-          <div class="products-container">
-            <div class="product-image-container">
-              <img src="images/products/coffeemaker-with-glass-carafe-black.jpg" alt="">
-            </div>
-            <div class="product-info-container">
-              <div class="product-info">
-                <h2 class="product-name">Black and Gray Athletic Cotton Socks - 6 Pairs</h2>
-                <p class="product-arrival-date">Estimated Arrival on: August 15</p>
-                <p class="product-quantity">Quantity: 1</p>
-                <button class="buy-again-button">
-                  <img src="images/icons/buy-again.png" alt="">
-                  Buy it again
-                </button>
-              </div>
-              <button class="track-package-button">Track package</button>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-
-      <div class="order-placed-container">
-        <div class="orders-info-container">
-          <div class="date-and-total">
-            <div class="orders-info">
-              <p class="title">Order Placed:</p>
-              <p>August 12</p>
-            </div>
-            <div class="orders-info">
-              <p class="title">Total:</p>
-              <p>$35.06</p>
-            </div>
-          </div>
-          <div class="orders-info">
-            <p class="title">Order ID:</p>
-            <p>27cba69d-4c3d-4098-b42d-ac7fa62b7664</p>
-          </div>
-        </div>
-
-        <div class="order-detail-grid">
-          <div class="products-container">
-            <div class="product-image-container">
-              <img src="images/products/blackout-curtain-set-beige.webp" alt="">
-            </div>
-            <div class="product-info-container">
-              <div class="product-info">
-                <h2 class="product-name">Black and Gray Athletic Cotton Socks - 6 Pairs</h2>
-                <p class="product-arrival-date">Estimated Arrival on: August 15</p>
-                <p class="product-quantity">Quantity: 1</p>
-                <button class="buy-again-button">
-                  <img src="images/icons/buy-again.png" alt="">
-                  Buy it again
-                </button>
-              </div>
-              <button class="track-package-button">Track package</button>
-            </div>
-          </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-    
+    <h1>Your Orders</h1>
+    <div class="contents js-all-orders-container"></div>
 
   </section>
 
+  <script src="./scripts/orders.js" type="module"></script>
 </body>
 </html>

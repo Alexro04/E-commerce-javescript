@@ -2,9 +2,10 @@ import {cart} from '../../data/cart.js'
 import { getProduct } from '../../data/products.js';
 import {getDeliveryOption} from '../../data/deliveryOptions.js'
 import {formatCurrency} from '../utils/money.js'
+import { order } from '../../data/orders.js';
 
-export function renderPaymentSummary() {
-  const allPrices = calculatePrices();
+export async function renderPaymentSummary() {
+  const allPrices = await calculatePrices(cart.cartItems);
   const cartQuantity = cart.getCartQuantity()
 
   const priceSummaryHTML = `
@@ -35,25 +36,33 @@ export function renderPaymentSummary() {
       <p>Order total:</p>
       <p>$${formatCurrency(allPrices.totalAfterTaxCents)}</p>
     </div>
-    <button class="place-order-button">Place your order</button>
+    <button class="place-order-button js-place-order-button">Place your order</button>
   `
   const orderSummary = document.querySelector('.order-sumary-section');
   if (orderSummary) orderSummary.innerHTML = priceSummaryHTML;
 
+  const placeOrder = document.querySelector('.js-place-order-button')
+  if (placeOrder) {
+    placeOrder.addEventListener('click', async () => {
+      await order.generateOrder(cart.cartItems)
+      window.location.href = 'orders.html';
+    })
+  }
+
 }
 
-function calculatePrices() {
+async function calculatePrices(cartItems) {
   let allItemsPriceCents = 0;
   let allItemsShippingCents = 0;
-  cart.cartItems.forEach(cartItem => {
-    const product = getProduct(cartItem.itemId);
+  for (const cartItem of cartItems) {
+    const product = await getProduct(cartItem.productId);
     const deliveryOption = getDeliveryOption(cartItem.deliveryOption);
     const itemPriceCents = product.priceCents * cartItem.quantity;
     const itemShippingCents = deliveryOption.priceCents;
     
     allItemsPriceCents += itemPriceCents;
     allItemsShippingCents += itemShippingCents;
-  });
+  };
 
   const totalBeforeTaxCents = allItemsPriceCents + allItemsShippingCents;
   const taxCents = totalBeforeTaxCents * 0.1;

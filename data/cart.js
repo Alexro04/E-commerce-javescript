@@ -9,13 +9,13 @@ class Cart {
     localStorage.setItem('cart', JSON.stringify(this.cartItems))
   }
 
-  addToCart(itemId) {
+  addToCart(productId) {
     let sameProduct;
-    const selectElement = document.querySelector(`[data-select-product-id="${itemId}"]`)
+    const selectElement = document.querySelector(`[data-select-product-id="${productId}"]`)
     const selectedQuantity = Number(selectElement.value)
   
     this.cartItems.forEach((cartItem) => {
-      if (cartItem.itemId === itemId) {
+      if (cartItem.productId === productId) {
         cartItem.quantity += selectedQuantity;
         sameProduct = true;
       }
@@ -23,7 +23,7 @@ class Cart {
   
     if (!sameProduct) {
       this.cartItems.push({
-        itemId,
+        productId,
         quantity: selectedQuantity,
         deliveryOption: '1'
       })
@@ -31,9 +31,9 @@ class Cart {
     this.#saveToStorage()
   }
 
-  removefromCart(itemId){
+  removefromCart(productId){
     this.cartItems = this.cartItems.filter((cartItem) => {
-      return cartItem.itemId !== itemId
+      return cartItem.productId !== productId
     })
     this.#saveToStorage()
   }
@@ -48,7 +48,7 @@ class Cart {
 
   updateItemQuantity(newQuantity, updateCartId) {
     this.cartItems.forEach((cartItem) => {
-      if (cartItem.itemId === updateCartId) {
+      if (cartItem.productId === updateCartId) {
         cartItem.quantity = newQuantity;
       }
     })
@@ -57,7 +57,7 @@ class Cart {
 
   updateDeliveryOption(productId, deliveryOption) {
     this.cartItems.forEach((cartItem) => {
-      if (cartItem.itemId === productId) {
+      if (cartItem.productId === productId) {
         cartItem.deliveryOption = deliveryOption;
       }
     })

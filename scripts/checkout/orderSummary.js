@@ -19,7 +19,7 @@ export function renderOrderSummary() {
 
   cart.cartItems.forEach((cartItem) => {
     products.forEach((product) => {
-      if (cartItem.itemId === product.id) {
+      if (cartItem.productId === product.id) {
         checkoutSummaryHTML += `<div class="product-container js-product-container-${product.id}">
           <h2>Delivery date: ${getSelectedDelivery(cartItem.deliveryOption)}</h2>
           <div class="product-grid">
@@ -59,10 +59,10 @@ export function renderOrderSummary() {
 
   document.querySelectorAll('.js-delete-item-button')
   .forEach((deleteButton) => {
-    const itemId = deleteButton.dataset.deleteItem
+    const productId = deleteButton.dataset.deleteItem
     deleteButton.addEventListener('click', () => {
-      cart.removefromCart(itemId)
-      document.querySelector(`.js-product-container-${itemId}`).remove()
+      cart.removefromCart(productId)
+      document.querySelector(`.js-product-container-${productId}`).remove()
       updatePage()
       renderPaymentSummary()
     })
@@ -126,7 +126,7 @@ function getSelectedDelivery(deliveryOption) {
   return dateString;
 }
 
-function generateDeliveryOptions(itemId, selectedOption) {
+function generateDeliveryOptions(productId, selectedOption) {
   const checkoutDay = dayjs()
   let deliveryOptionsHTML = '';
 
@@ -136,9 +136,9 @@ function generateDeliveryOptions(itemId, selectedOption) {
     deliveryOptionsHTML += `
       <div 
       class="delivery-option js-delivery-option"
-      data-product-id="${itemId}"
+      data-product-id="${productId}"
       data-delivery-option="${option.id}">
-        <input type="radio" id="" name="delivery-date-${itemId}" ${option.id === selectedOption ? 'checked' : ''}/>
+        <input type="radio" id="" name="delivery-date-${productId}" ${option.id === selectedOption ? 'checked' : ''}/>
         <label for="">
           <p class="date">${dateString}</p>
           <p>${option.priceCents === 0 ? 'FREE -' : `$${formatCurrency(option.priceCents)} -`} Shipping</p>
