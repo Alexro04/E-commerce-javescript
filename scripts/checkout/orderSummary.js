@@ -20,7 +20,7 @@ export function renderOrderSummary() {
   cart.cartItems.forEach((cartItem) => {
     products.forEach((product) => {
       if (cartItem.productId === product.id) {
-        checkoutSummaryHTML += `<div class="product-container js-product-container-${product.id}">
+        checkoutSummaryHTML += `<div id='${product.id}' class="product-container js-product-container-${product.id}">
           <h2>Delivery date: ${getSelectedDelivery(cartItem.deliveryOption)}</h2>
           <div class="product-grid">
             <div class="image-container">

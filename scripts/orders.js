@@ -39,6 +39,16 @@ async function renderOrders(orders) {
 
   document.querySelector('.js-all-orders-container')
     .innerHTML = allOrdersHTML;
+
+  document.querySelectorAll('.js-buy-again-button')
+    .forEach((buyAgainButton) => {
+      buyAgainButton.addEventListener('click', () => {
+        const productId = buyAgainButton.dataset.productId;
+        cart.addToCart(productId, 1);
+        updateCartQuantity();
+        window.location.href = `checkout.html#${productId}`;
+      })
+    })
 }
 
 
@@ -55,9 +65,11 @@ async function generateProducts(products, orderId) {
         <div class="product-info-container">
           <div class="product-info">
             <h2 class="product-name">${productItem.name}</h2>
-            <p class="product-arrival-date">Estimated Arrival on: ${formatDateString(product.estimatedDeliveryTime)}</p>
+            <p class="product-arrival-date">
+              Estimated Arrival on: ${formatDateString(product.estimatedDeliveryTime)}
+            </p>
             <p class="product-quantity">Quantity: ${product.quantity}</p>
-            <button class="buy-again-button">
+            <button class="buy-again-button js-buy-again-button" data-product-id=${product.productId}>
               <img src="images/icons/buy-again.png" alt="">
               Buy it again
             </button>

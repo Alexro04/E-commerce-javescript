@@ -61,8 +61,10 @@ function renderProducts() {
       button.addEventListener('click', () => {
         const productId = button.dataset.productId;
         const addedToCart = document.querySelector(`[data-added-product-id="${productId}"]`)
+        const selectElement = document.querySelector(`[data-select-product-id="${productId}"]`)
+        const selectedQuantity = Number(selectElement.value)
         
-        cart.addToCart(productId)
+        cart.addToCart(productId, selectedQuantity)
         updateCartQuantity()
   
         addedToCart.classList.add('display-added')

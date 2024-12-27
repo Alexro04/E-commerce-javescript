@@ -9,14 +9,12 @@ class Cart {
     localStorage.setItem('cart', JSON.stringify(this.cartItems))
   }
 
-  addToCart(productId) {
+  addToCart(productId, quantity) {
     let sameProduct;
-    const selectElement = document.querySelector(`[data-select-product-id="${productId}"]`)
-    const selectedQuantity = Number(selectElement.value)
   
     this.cartItems.forEach((cartItem) => {
       if (cartItem.productId === productId) {
-        cartItem.quantity += selectedQuantity;
+        cartItem.quantity += quantity;
         sameProduct = true;
       }
     });
@@ -24,7 +22,7 @@ class Cart {
     if (!sameProduct) {
       this.cartItems.push({
         productId,
-        quantity: selectedQuantity,
+        quantity: quantity,
         deliveryOption: '1'
       })
     }
