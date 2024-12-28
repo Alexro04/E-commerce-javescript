@@ -54,7 +54,7 @@ class Order {
     ];
   
     const deliveryDate = new Date(date)
-    return `${months[deliveryDate.getMonth()]} ${deliveryDate.getDay()}`
+    return `${months[deliveryDate.getMonth()]} ${deliveryDate.getDate()}`
   }
 }
 

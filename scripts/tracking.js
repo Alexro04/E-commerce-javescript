@@ -26,7 +26,7 @@ async function loadPage() {
     </a>
 
     <div class="delivery-date">
-      Arriving on ${order.formatDateString(currentOrder.orderTime)}
+      Arriving on ${formatDateString(currentOrder.orderTime)}
     </div>
 
     <div class="product-info">
@@ -37,7 +37,7 @@ async function loadPage() {
       <img class="product-image" src="${product.image}">
     </div>
 
-    <div class="product-info">
+    <div class="product-info product-quantity">
       Quantity: ${quantity}
     </div>
     
@@ -68,4 +68,19 @@ function updateCartQuantity() {
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity===0 ? '' : cartQuantity;
 
+}
+
+function formatDateString(date) {
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const days = [
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+    "Saturday", "Sunday"
+  ]
+
+  const deliveryDate = new Date(date)
+  return `${days[deliveryDate.getDay()]}, ${months[deliveryDate.getMonth()]} ${deliveryDate.getDate()}`
 }
