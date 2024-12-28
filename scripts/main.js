@@ -54,7 +54,8 @@ function renderProducts() {
     `
   });
   
-  document.getElementById('js-products-grid').innerHTML = allProductsHTML;
+  document.getElementById('js-products-grid')
+    .innerHTML = allProductsHTML;
   
   document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {

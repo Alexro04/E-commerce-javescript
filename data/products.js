@@ -43,7 +43,7 @@ export async function loadProductFetch() {
       products = data.map((product) => {
         return new Product(product)
       })
-      console.log(products)
+
     } catch (error) {
       console.log('Data could not be fetched from backend', error)
     }

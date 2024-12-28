@@ -36,6 +36,11 @@ class Cart {
     this.#saveToStorage()
   }
 
+  clearCart() {
+    this.cartItems = [];
+    this.#saveToStorage()
+  }
+
   getCartQuantity() {
     let cartQuantity = 0;
     this.cartItems.forEach((cartItem) => {

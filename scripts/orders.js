@@ -17,7 +17,7 @@ async function renderOrders(orders) {
           <div class="date-and-total">
             <div class="orders-info">
               <p class="title">Order Placed:</p>
-              <p>${formatDateString(singleOrder.orderTime)}</p>
+              <p>${order.formatDateString(singleOrder.orderTime)}</p>
             </div>
             <div class="orders-info">
               <p class="title">Total:</p>
@@ -66,7 +66,7 @@ async function generateProducts(products, orderId) {
           <div class="product-info">
             <h2 class="product-name">${productItem.name}</h2>
             <p class="product-arrival-date">
-              Estimated Arrival on: ${formatDateString(product.estimatedDeliveryTime)}
+              Estimated Arrival on: ${order.formatDateString(product.estimatedDeliveryTime)}
             </p>
             <p class="product-quantity">Quantity: ${product.quantity}</p>
             <button class="buy-again-button js-buy-again-button" data-product-id=${product.productId}>
@@ -89,14 +89,4 @@ function updateCartQuantity() {
   document.querySelector('.js-cart-quantity')
   .innerHTML = cartQuantity===0 ? '' : cartQuantity;
 
-}
-
-function formatDateString(date) {
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
-  const deliveryDate = new Date(date)
-  return `${months[deliveryDate.getMonth()]} ${deliveryDate.getDay()}`
 }

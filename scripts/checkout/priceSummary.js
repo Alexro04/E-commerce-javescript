@@ -45,6 +45,7 @@ export async function renderPaymentSummary() {
   if (placeOrder) {
     placeOrder.addEventListener('click', async () => {
       await order.generateOrder(cart.cartItems)
+      cart.clearCart();
       window.location.href = 'orders.html';
     })
   }
